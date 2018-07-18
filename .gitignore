@@ -8,3 +8,4 @@
 **/maven-wrapper.jar
 **/mvnw.cmd
 **/*.png
+**/*.bpmn2d
