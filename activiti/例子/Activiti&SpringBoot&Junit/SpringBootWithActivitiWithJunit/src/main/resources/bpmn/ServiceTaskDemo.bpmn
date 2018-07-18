@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+ <process id="AutoExecuteTask" name="AutoExecuteTask">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <parallelGateway id="parallelgateway1" name="多种请假方式"></parallelGateway>
+    <serviceTask id="servicetask1" name="项目经理同意" activiti:class="com.easyway.workflow.activiti.gateway.DeveloperManagerServiceTask"></serviceTask>
+    <serviceTask id="servicetask2" name="产品经理同意" activiti:class="com.easyway.workflow.activiti.gateway.ProductManagerServiceTask"></serviceTask>
+    <serviceTask id="servicetask3" name="项目组长同意" activiti:class="com.easyway.workflow.activiti.gateway.TeamLeaderServiceTask"></serviceTask>
+    <parallelGateway id="parallelgateway2" name="First Join"></parallelGateway>
+    <serviceTask id="servicetask4" name="项目总监同意" activiti:class="com.easyway.workflow.activiti.gateway.ProductBossServiceTask"></serviceTask>
+    <parallelGateway id="parallelgateway3" name="人事判断"></parallelGateway>
+    <serviceTask id="servicetask5" name="人事部门同意" activiti:class="com.easyway.workflow.activiti.gateway.HumanResouceServiceTask"></serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" name="" sourceRef="startevent1" targetRef="parallelgateway1"></sequenceFlow>
+    <sequenceFlow id="flow2" name="" sourceRef="parallelgateway1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow3" name="" sourceRef="parallelgateway1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow4" name="" sourceRef="parallelgateway1" targetRef="servicetask3"></sequenceFlow>
+    <sequenceFlow id="flow5" name="" sourceRef="servicetask1" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow6" name="" sourceRef="servicetask2" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow7" name="" sourceRef="servicetask3" targetRef="parallelgateway3"></sequenceFlow>
+    <sequenceFlow id="flow8" name="" sourceRef="parallelgateway2" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow9" name="" sourceRef="servicetask4" targetRef="parallelgateway3"></sequenceFlow>
+    <sequenceFlow id="flow10" name="" sourceRef="parallelgateway3" targetRef="servicetask5"></sequenceFlow>
+    <sequenceFlow id="flow11" name="" sourceRef="servicetask5" targetRef="endevent1"></sequenceFlow>
+  </process>
+</definitions>

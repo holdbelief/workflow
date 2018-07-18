@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="intermediateCatchEventTest" name="intermediateCatchEventTest" isExecutable="true">
+    <startEvent id="start" name="开始"></startEvent>
+    <intermediateCatchEvent id="waitTimer1">
+      <timerEventDefinition>
+        <timeDate>${myDate1}</timeDate>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <serviceTask id="checkLog" name="检查日志" activiti:expression="${myBean.execute()}"></serviceTask>
+    <endEvent id="sid-FB551A38-B458-488B-8887-DA7A73A1D937" name="结束"></endEvent>
+    <userTask id="userTask" name="用户任务"></userTask>
+    <intermediateCatchEvent id="waitTimer2">
+      <timerEventDefinition>
+        <timeDate>${myDate2}</timeDate>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow01" sourceRef="start" targetRef="waitTimer1"></sequenceFlow>
+    <sequenceFlow id="flow02" sourceRef="waitTimer1" targetRef="userTask"></sequenceFlow>
+    <sequenceFlow id="flow03" sourceRef="userTask" targetRef="waitTimer2"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="waitTimer2" targetRef="checkLog"></sequenceFlow>
+    <sequenceFlow id="flow05" sourceRef="checkLog" targetRef="sid-FB551A38-B458-488B-8887-DA7A73A1D937"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_intermediateCatchEventTest">
+    <bpmndi:BPMNPlane bpmnElement="intermediateCatchEventTest" id="BPMNPlane_intermediateCatchEventTest">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="35.0" width="35.0" x="160.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="waitTimer1" id="BPMNShape_waitTimer1">
+        <omgdc:Bounds height="35.0" width="35.0" x="235.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkLog" id="BPMNShape_checkLog">
+        <omgdc:Bounds height="80.0" width="100.0" x="545.0" y="105.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-FB551A38-B458-488B-8887-DA7A73A1D937" id="BPMNShape_sid-FB551A38-B458-488B-8887-DA7A73A1D937">
+        <omgdc:Bounds height="35.0" width="35.0" x="690.0" y="131.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="userTask" id="BPMNShape_userTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="315.0" y="105.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="waitTimer2" id="BPMNShape_waitTimer2">
+        <omgdc:Bounds height="35.0" width="35.0" x="475.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow01" id="BPMNEdge_flow01">
+        <omgdi:waypoint x="195.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="235.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow02" id="BPMNEdge_flow02">
+        <omgdi:waypoint x="270.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="315.0" y="145.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow03" id="BPMNEdge_flow03">
+        <omgdi:waypoint x="415.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="475.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="510.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.0" y="145.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow05" id="BPMNEdge_flow05">
+        <omgdi:waypoint x="645.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="690.0" y="148.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,10 @@
+**/classes
+**/target
+**/test-classes
+**/.settings
+**/*.bak
+**/.classpath
+**/.factorypath
+**/maven-wrapper.jar
+**/mvnw.cmd
+**/*.png

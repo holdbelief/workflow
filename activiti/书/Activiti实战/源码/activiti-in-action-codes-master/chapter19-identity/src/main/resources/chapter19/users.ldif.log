@@ -1,0 +1,57 @@
+#BasedontheexampleLDIFfileathttp: //krams915.blogspot.be/2011/01/spring-security-mvc-using-embedded-ldap.html
+
+#组织架构�?
+
+#!RESULT OK
+#!CONNECTION ldap://localhost:389
+#!DATE 2018-06-22T18:17:02.836
+dn: o=aia
+objectClass: organization
+objectClass: extensibleObject
+objectClass: top
+o: aia
+
+#用户类型定义
+
+#!RESULT OK
+#!CONNECTION ldap://localhost:389
+#!DATE 2018-06-22T18:17:02.839
+dn: ou=users,o=aia
+objectClass: extensibleObject
+objectClass: organizationalUnit
+objectClass: top
+ou: users
+
+#组类型定�?
+
+#!RESULT OK
+#!CONNECTION ldap://localhost:389
+#!DATE 2018-06-22T18:17:02.841
+dn: ou=groups,o=aia
+objectClass: extensibleObject
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+
+#定义�?
+
+#!RESULT ERROR
+#!CONNECTION ldap://localhost:389
+#!DATE 2018-06-22T18:17:02.843
+#!ERROR [LDAP: error code 65 - attribute 'uid' not allowed]
+dn: cn=普�?�用�?,ou=groups,o=aia
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: 普�?�用�?
+uid: user
+uniqueMember: uid=bill,ou=users,o=aia
+uniqueMember: uid=jenny,ou=users,o=aia
+uniqueMember: uid=kermit,ou=users,o=aia
+uniqueMember: uid=eric,ou=users,o=aia
+uniqueMember: uid=tom,ou=users,o=aia
+uniqueMember: uid=andy,ou=users,o=aia
+uniqueMember: uid=amy,ou=users,o=aia
+uniqueMember: uid=tony,ou=users,o=aia
+uniqueMember: uid=lily,ou=users,o=aia
+uniqueMember: uid=thomas,ou=users,o=aia
+
