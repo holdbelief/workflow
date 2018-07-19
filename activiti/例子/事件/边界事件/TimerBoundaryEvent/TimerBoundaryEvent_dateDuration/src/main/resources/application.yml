@@ -8,8 +8,9 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+  activiti:
+    check-process-definitions: false
 server:
   port: 8081
-  
 
   

@@ -14,9 +14,9 @@ public class SwTimeOutProcessorListener implements JavaDelegate {
     private TaskService taskService;
 	
 	@Override
-	public void execute(DelegateExecution execution) throws Exception {
+	public void execute(DelegateExecution execution) {
 		//获得事务id  
-        String businessKey = execution.getProcessBusinessKey();  
+        String businessKey = execution.getProcessInstanceBusinessKey();  
         Task task = taskService.createTaskQuery().processInstanceId(execution.getProcessInstanceId()).singleResult();
         String assignee = task.getAssignee();  
         

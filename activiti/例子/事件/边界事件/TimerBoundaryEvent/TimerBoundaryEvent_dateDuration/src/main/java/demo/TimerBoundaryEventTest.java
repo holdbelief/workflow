@@ -25,8 +25,8 @@ public class TimerBoundaryEventTest {
          
         RuntimeService runtimeService = engine.getRuntimeService();
         Map<String, Object> var = new HashMap<>();
-//        var.put("timeDuration", "PT10S");
-        var.put("timeDuration", "");
+        var.put("timeDuration", "PT10S");
+//        var.put("timeDuration", "");
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("TimerBoundaryEvent", var);
          
         TaskService taskService = engine.getTaskService();

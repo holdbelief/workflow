@@ -1,7 +1,9 @@
 package demo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.activiti.engine.ProcessEngine;
@@ -29,6 +31,11 @@ public class Demo {
         
         Map<String, Object> var = new HashMap<>();	
         var.put("outterVar1", 1);
+        List<String> assigneeList=new ArrayList<>(); //分配任务的人员
+        assigneeList.add("tom");
+        assigneeList.add("tom");
+        assigneeList.add("tom");
+        var.put("assigneeList", assigneeList);
         
         RuntimeService runtimeService = engine.getRuntimeService();
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("myDemo", var);
@@ -37,17 +44,9 @@ public class Demo {
         Task usertask1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask1").singleResult();
         System.out.println("外层的usertask1的id = " + usertask1.getId());
         System.out.println("outterVar1 = " + runtimeService.getVariable(processInstance.getId(), "outterVar1"));
+        taskService.complete(usertask1.getId());
         
-        //发出消息，触发MessageBoundaryEvent
-        ExecutionQuery executionQuery = runtimeService.createExecutionQuery();
-        Execution execution_MSG 
-        		= executionQuery.processInstanceId(processInstance.getId()).messageEventSubscriptionName("msg1").singleResult();
-        
-        runtimeService.messageEventReceived("msg1", execution_MSG.getId());
-        
-        // 由于是cancelActivity=true，所以下面的代码不能执行
-//        taskService.complete(usertask1.getId());
-        
+        /* START 第一次执行子流程 */
         ProcessInstance piSub = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
         Task calledProcess2_usertask1 = taskService.createTaskQuery().processInstanceId(piSub.getId()).taskName("calledProcess2_usertask1").singleResult();
         System.out.println(taskService.getVariable(calledProcess2_usertask1.getId(), "outterVal1"));;
@@ -60,13 +59,53 @@ public class Demo {
         m_inner.put("innerVar2", innerVar2_val);
         
         taskService.complete(calledProcess2_usertask1.getId(), m_inner);
+        /* END   第一次执行子流程 */
+        
+        /* START 第二次执行子流程 */
+//        ProcessInstance piSub2 = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
+//        Task calledProcess2_usertask1_2 = taskService.createTaskQuery().processInstanceId(piSub2.getId()).taskName("calledProcess2_usertask1").singleResult();
+//        System.out.println(taskService.getVariable(calledProcess2_usertask1_2.getId(), "outterVal1"));;
+//        System.out.println(taskService.getVariable(calledProcess2_usertask1_2.getId(), "innerVar1"));
+//        System.out.println(runtimeService.getVariable(piSub2.getId(), "innerVar1"));
+//        System.out.println("calledProcess2的calledProcess2_usertask1的id = " + calledProcess2_usertask1_2.getId());
+//        
+//        Map m_inner_2 = new HashMap();
+//        int innerVar2_val_2 = Integer.parseInt(runtimeService.getVariable(piSub2.getId(), "innerVar1").toString()) + 1;
+//        m_inner_2.put("innerVar2", innerVar2_val_2);
+//        
+//        taskService.complete(calledProcess2_usertask1_2.getId(), m_inner_2);
+        /* END   第二次执行子流程 */
+        
+        /* START 第三次执行子流程 */
+//        ProcessInstance piSub3 = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
+//        Task calledProcess2_usertask1_3 = taskService.createTaskQuery().processInstanceId(piSub3.getId()).taskName("calledProcess2_usertask1").singleResult();
+//        System.out.println(taskService.getVariable(calledProcess2_usertask1_3.getId(), "outterVal1"));;
+//        System.out.println(taskService.getVariable(calledProcess2_usertask1_3.getId(), "innerVar1"));
+//        System.out.println(runtimeService.getVariable(piSub3.getId(), "innerVar1"));
+//        System.out.println("calledProcess2的calledProcess2_usertask1的id = " + calledProcess2_usertask1_3.getId());
+//        
+//        Map m_inner_3= new HashMap();
+//        int innerVar2_val_3 = Integer.parseInt(runtimeService.getVariable(piSub3.getId(), "innerVar1").toString()) + 1;
+//        m_inner_3.put("innerVar2", innerVar2_val_3);
+//        
+//        taskService.complete(calledProcess2_usertask1_3.getId(), m_inner_3);
+        /* END   第三次执行子流程 */
         
         Task usertask2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask2").singleResult();
         System.out.println("外层的usertask2的id = " + usertask2.getId());
-        System.out.println("外层的outterVar2的值 = " + runtimeService.getVariable(processInstance.getId(), "outterVar2").toString());
+//        System.out.println("外层的outterVar2的值 = " + runtimeService.getVariable(processInstance.getId(), "outterVar2").toString());
         System.out.println("外层的outterVar1的值 = " + runtimeService.getVariable(processInstance.getId(), "outterVar1").toString());
         
         taskService.complete(usertask2.getId());
+        
+        //执行usertask3
+        Task usertask3 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask3").singleResult();
+        System.out.println("外层的usertask3的id = " + usertask3.getId());
+        System.out.println("外层的outterVar1的值 = " + runtimeService.getVariable(processInstance.getId(), "outterVar1").toString());
+        
+        taskService.complete(usertask3.getId());
+        
+        Task usertask4 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask4").singleResult();
          
         HistoricProcessInstance historicProcessInstance = engine.getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).singleResult();
         Date endTime = historicProcessInstance.getEndTime();
