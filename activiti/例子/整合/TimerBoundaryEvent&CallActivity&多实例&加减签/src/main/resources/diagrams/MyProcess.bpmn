@@ -11,6 +11,7 @@
         <activiti:out source="innerVar2" target="outterVar2"></activiti:out>
         <activiti:executionListener event="start" class="demo.executionlisteners.ExecutionListenerForCallActivity"></activiti:executionListener>
       </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="true" activiti:collection="assigneeList" activiti:elementVariable="assignee"></multiInstanceLoopCharacteristics>
     </callActivity>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="callactivity1" targetRef="usertask2"></sequenceFlow>
@@ -28,12 +29,12 @@
         <timeDate>${timeDate}</timeDate>
       </timerEventDefinition>
     </boundaryEvent>
-    <userTask id="usertask4" name="usertask4"></userTask>
-    <sequenceFlow id="flow8" sourceRef="boundarytimer1" targetRef="usertask4"></sequenceFlow>
-    <sequenceFlow id="flow9" sourceRef="usertask4" targetRef="terminateendevent1"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="boundarytimer1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="servicetask1" targetRef="terminateendevent1"></sequenceFlow>
     <endEvent id="terminateendevent1" name="TerminateEndEvent">
       <terminateEventDefinition></terminateEventDefinition>
     </endEvent>
+    <serviceTask id="servicetask1" name="servicetask1" activiti:class="demo.servicetaskclass.MyServiceTask"></serviceTask>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myDemo">
     <bpmndi:BPMNPlane bpmnElement="myDemo" id="BPMNPlane_myDemo">
@@ -58,11 +59,11 @@
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
         <omgdc:Bounds height="55.0" width="105.0" x="980.0" y="210.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="55.0" width="105.0" x="720.0" y="370.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="terminateendevent1" id="BPMNShape_terminateendevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="1050.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="720.0" y="370.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="196.0" y="226.0"></omgdi:waypoint>

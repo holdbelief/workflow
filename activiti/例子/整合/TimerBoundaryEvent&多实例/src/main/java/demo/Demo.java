@@ -1,7 +1,9 @@
 package demo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.activiti.engine.ProcessEngine;
@@ -23,29 +25,42 @@ public class Demo {
     	SpringApplication.run(Demo.class, args);
         ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = engine.getRepositoryService();
-        repositoryService.createDeployment().name("callActivityDemo").addClasspathResource("diagrams/MyProcess.bpmn").deploy();
+        repositoryService.createDeployment().addClasspathResource("diagrams/MyProcess.bpmn").deploy();
         
         RuntimeService runtimeService = engine.getRuntimeService();
         
-        Map<String, Object> var = new HashMap<>();
-        var.put("timeDuration", "PT10S");
+        List<String> assigneeList=new ArrayList<>(); //分配任务的人员
+        assigneeList.add("tom");
+        assigneeList.add("tom");
+        assigneeList.add("tom");
+        Map<String, Object> vars = new HashMap<>(); //参数
+        vars.put("assigneeList", assigneeList);
         
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("myDemo", var);
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("myDemo", vars);
         TaskService taskService = engine.getTaskService();
         TaskQuery taskQuery = taskService.createTaskQuery();
         
         Task usertask1 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask1").singleResult();
         taskService.complete(usertask1.getId());
         
+        // 第一次执行usertask5
+        Task usertask5 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask5").taskAssignee("tom").singleResult();
+        taskService.complete(usertask5.getId());
         
-        Task usertask5 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask5").singleResult();
+        // 第二次执行usertask5
+        usertask5 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask5").taskAssignee("tom").singleResult();
+        taskService.complete(usertask5.getId());
         
-        // 停止15秒
-     	Thread.sleep(1000 * 15);
+        // 第三次执行usertask5
+        usertask5 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask5").taskAssignee("tom").singleResult();
+        taskService.complete(usertask5.getId());
+        
+//        // 停止15秒
+//     	Thread.sleep(1000 * 15);
 
-        Task usertask4 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask4").singleResult();
-        System.out.println("15秒钟后，usertask4有值，不等于null，usertask4 的 ID = " + usertask4.getId());
-        taskService.complete(usertask4.getId());
+//        Task usertask4 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask4").singleResult();
+//        System.out.println("15秒钟后，usertask4有值，不等于null，usertask4 的 ID = " + usertask4.getId());
+//        taskService.complete(usertask4.getId());
         
         // 验证流程是否全部完成, 由于usertask4后面接的是TerminateEndEvent，所以usertask4结束之后，整个流程实例就应该结束了
         HistoricProcessInstance historicProcessInstance = engine.getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).singleResult();

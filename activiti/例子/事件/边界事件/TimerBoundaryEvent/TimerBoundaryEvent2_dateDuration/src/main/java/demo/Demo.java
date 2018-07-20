@@ -41,10 +41,10 @@ public class Demo {
         Task usertask5 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask5").singleResult();
         
         // 停止15秒
-     	Thread.sleep(1000 * 15);
+     	Thread.sleep(1000 * 20);
 
         Task usertask4 = taskQuery.processInstanceId(processInstance.getId()).taskName("usertask4").singleResult();
-        System.out.println("15秒钟后，usertask4有值，不等于null，usertask4 的 ID = " + usertask4.getId());
+        System.out.println("20秒钟后，usertask4有值，不等于null，usertask4 的 ID = " + usertask4.getId());
         taskService.complete(usertask4.getId());
         
         // 验证流程是否全部完成, 由于usertask4后面接的是TerminateEndEvent，所以usertask4结束之后，整个流程实例就应该结束了

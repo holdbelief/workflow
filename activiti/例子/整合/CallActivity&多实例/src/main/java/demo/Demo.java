@@ -44,30 +44,33 @@ public class Demo {
         Task usertask1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask1").singleResult();
         taskService.complete(usertask1.getId());
         
-        
-        Thread.sleep(10000);
         /* START 第一次执行子流程 */
         ProcessInstance piSub = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
         Task calledProcess2_usertask1 = taskService.createTaskQuery().processInstanceId(piSub.getId()).taskName("calledProcess2_usertask1").singleResult();
         taskService.complete(calledProcess2_usertask1.getId());
         /* END   第一次执行子流程 */
         
-        Thread.sleep(15000);
+
+        
         /* START 第二次执行子流程 */
         ProcessInstance piSub2 = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
         Task calledProcess2_usertask1_2 = taskService.createTaskQuery().processInstanceId(piSub2.getId()).taskName("calledProcess2_usertask1").singleResult();
         taskService.complete(calledProcess2_usertask1_2.getId());
         /* END   第二次执行子流程 */
         
-        Thread.sleep(40000);
+
+        
         /* START 第三次执行子流程 */
         ProcessInstance piSub3 = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
-//        Task calledProcess2_usertask1_3 = taskService.createTaskQuery().processInstanceId(piSub3.getId()).taskName("calledProcess2_usertask1").singleResult();
-//        taskService.complete(calledProcess2_usertask1_3.getId());
-        if ( piSub3 == null ) {
-        	System.out.println("我感觉 piSub3 == null 是正确的");
-        }
+        Task calledProcess2_usertask1_3 = taskService.createTaskQuery().processInstanceId(piSub3.getId()).taskName("calledProcess2_usertask1").singleResult();
+        taskService.complete(calledProcess2_usertask1_3.getId());
         /* END   第三次执行子流程 */
+        
+        Task usertask2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask2").singleResult();
+        taskService.complete(usertask2.getId());
+        
+        Task usertask3 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask3").singleResult();
+        taskService.complete(usertask3.getId());
         
         HistoricProcessInstance historicProcessInstance = engine.getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).singleResult();
         Date endTime = historicProcessInstance.getEndTime();
