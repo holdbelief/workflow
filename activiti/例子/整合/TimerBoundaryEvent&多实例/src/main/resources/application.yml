@@ -11,7 +11,7 @@ spring:
   activiti:
     check-process-definitions: false
 server:
-  port: 8081
+  port: 0
 
 
   

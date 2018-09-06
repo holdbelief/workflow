@@ -22,7 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(exclude = org.activiti.spring.boot.SecurityAutoConfiguration.class)
 public class Demo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
     	
     	SpringApplication.run(Demo.class, args);
         ProcessEngine engine = ProcessEngines.getDefaultProcessEngine();
@@ -42,71 +42,33 @@ public class Demo {
         
         TaskService taskService = engine.getTaskService();
         Task usertask1 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask1").singleResult();
-        System.out.println("外层的usertask1的id = " + usertask1.getId());
-        System.out.println("outterVar1 = " + runtimeService.getVariable(processInstance.getId(), "outterVar1"));
         taskService.complete(usertask1.getId());
         
+        
+        Thread.sleep(10000);
         /* START 第一次执行子流程 */
         ProcessInstance piSub = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
         Task calledProcess2_usertask1 = taskService.createTaskQuery().processInstanceId(piSub.getId()).taskName("calledProcess2_usertask1").singleResult();
-        System.out.println(taskService.getVariable(calledProcess2_usertask1.getId(), "outterVal1"));;
-        System.out.println(taskService.getVariable(calledProcess2_usertask1.getId(), "innerVar1"));
-        System.out.println(runtimeService.getVariable(piSub.getId(), "innerVar1"));
-        System.out.println("calledProcess2的calledProcess2_usertask1的id = " + calledProcess2_usertask1.getId());
-        
-        Map m_inner = new HashMap();
-        int innerVar2_val = Integer.parseInt(runtimeService.getVariable(piSub.getId(), "innerVar1").toString()) + 1;
-        m_inner.put("innerVar2", innerVar2_val);
-        
-        taskService.complete(calledProcess2_usertask1.getId(), m_inner);
+        taskService.complete(calledProcess2_usertask1.getId());
         /* END   第一次执行子流程 */
         
+        Thread.sleep(15000);
         /* START 第二次执行子流程 */
-//        ProcessInstance piSub2 = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
-//        Task calledProcess2_usertask1_2 = taskService.createTaskQuery().processInstanceId(piSub2.getId()).taskName("calledProcess2_usertask1").singleResult();
-//        System.out.println(taskService.getVariable(calledProcess2_usertask1_2.getId(), "outterVal1"));;
-//        System.out.println(taskService.getVariable(calledProcess2_usertask1_2.getId(), "innerVar1"));
-//        System.out.println(runtimeService.getVariable(piSub2.getId(), "innerVar1"));
-//        System.out.println("calledProcess2的calledProcess2_usertask1的id = " + calledProcess2_usertask1_2.getId());
-//        
-//        Map m_inner_2 = new HashMap();
-//        int innerVar2_val_2 = Integer.parseInt(runtimeService.getVariable(piSub2.getId(), "innerVar1").toString()) + 1;
-//        m_inner_2.put("innerVar2", innerVar2_val_2);
-//        
-//        taskService.complete(calledProcess2_usertask1_2.getId(), m_inner_2);
+        ProcessInstance piSub2 = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
+        Task calledProcess2_usertask1_2 = taskService.createTaskQuery().processInstanceId(piSub2.getId()).taskName("calledProcess2_usertask1").singleResult();
+        taskService.complete(calledProcess2_usertask1_2.getId());
         /* END   第二次执行子流程 */
         
+        Thread.sleep(40000);
         /* START 第三次执行子流程 */
-//        ProcessInstance piSub3 = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
+        ProcessInstance piSub3 = runtimeService.createProcessInstanceQuery().superProcessInstanceId(processInstance.getId()).processDefinitionKey("calledProcess2").singleResult();
 //        Task calledProcess2_usertask1_3 = taskService.createTaskQuery().processInstanceId(piSub3.getId()).taskName("calledProcess2_usertask1").singleResult();
-//        System.out.println(taskService.getVariable(calledProcess2_usertask1_3.getId(), "outterVal1"));;
-//        System.out.println(taskService.getVariable(calledProcess2_usertask1_3.getId(), "innerVar1"));
-//        System.out.println(runtimeService.getVariable(piSub3.getId(), "innerVar1"));
-//        System.out.println("calledProcess2的calledProcess2_usertask1的id = " + calledProcess2_usertask1_3.getId());
-//        
-//        Map m_inner_3= new HashMap();
-//        int innerVar2_val_3 = Integer.parseInt(runtimeService.getVariable(piSub3.getId(), "innerVar1").toString()) + 1;
-//        m_inner_3.put("innerVar2", innerVar2_val_3);
-//        
-//        taskService.complete(calledProcess2_usertask1_3.getId(), m_inner_3);
+//        taskService.complete(calledProcess2_usertask1_3.getId());
+        if ( piSub3 == null ) {
+        	System.out.println("我感觉 piSub3 == null 是正确的");
+        }
         /* END   第三次执行子流程 */
         
-        Task usertask2 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask2").singleResult();
-        System.out.println("外层的usertask2的id = " + usertask2.getId());
-//        System.out.println("外层的outterVar2的值 = " + runtimeService.getVariable(processInstance.getId(), "outterVar2").toString());
-        System.out.println("外层的outterVar1的值 = " + runtimeService.getVariable(processInstance.getId(), "outterVar1").toString());
-        
-        taskService.complete(usertask2.getId());
-        
-        //执行usertask3
-        Task usertask3 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask3").singleResult();
-        System.out.println("外层的usertask3的id = " + usertask3.getId());
-        System.out.println("外层的outterVar1的值 = " + runtimeService.getVariable(processInstance.getId(), "outterVar1").toString());
-        
-        taskService.complete(usertask3.getId());
-        
-        Task usertask4 = taskService.createTaskQuery().processInstanceId(processInstance.getId()).taskName("usertask4").singleResult();
-         
         HistoricProcessInstance historicProcessInstance = engine.getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).singleResult();
         Date endTime = historicProcessInstance.getEndTime();
         

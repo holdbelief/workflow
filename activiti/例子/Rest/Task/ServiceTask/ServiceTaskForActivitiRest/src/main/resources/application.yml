@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ServiceTaskDemoForActivitiRest
+server:
+  port: 9091
+
+eureka:
+  client:
+    service-url:
+           defaultZone: http://localhost:8082/eureka
+
+activiti: 
+  rest: 
+    name: Activiti-rest

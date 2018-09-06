@@ -13,6 +13,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
+import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -78,6 +79,8 @@ public class 多实例加签Application {
         taskService.complete(tasktom2.getId(), vars);
         
         Task tasktom3 = taskService.createTaskQuery().taskAssignee("tom").processInstanceId(processInstance.getId()).singleResult();
+        TaskEntity te = (TaskEntity) tasktom3;
+//        ExecutionEntity processInstance2 = te.getProcessInstance();
         
         taskService.complete(tasktom3.getId());
         
