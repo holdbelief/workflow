@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jiayidai.jiedai.SpringBootWithJunit</groupId>
-	<artifactId>SpringBootWithJunit</artifactId>
+	<artifactId>MessageBoundaryEvent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 

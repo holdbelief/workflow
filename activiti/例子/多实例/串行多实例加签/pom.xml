@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>multiInstance</groupId>
-	<artifactId>multiInstance</artifactId>
+	<artifactId>multiInstance_add</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>多实例加签</name>
-	<description>multiInstance</description>
+	<description>multiInstance_add</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
