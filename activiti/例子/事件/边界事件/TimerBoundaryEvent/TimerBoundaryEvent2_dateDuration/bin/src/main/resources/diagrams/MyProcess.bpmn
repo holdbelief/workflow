@@ -22,7 +22,15 @@
     <endEvent id="terminateendevent1" name="TerminateEndEvent">
       <terminateEventDefinition></terminateEventDefinition>
     </endEvent>
+<<<<<<< HEAD
     <userTask id="usertask5" name="usertask5"></userTask>
+=======
+    <userTask id="usertask5" name="usertask5">
+      <extensionElements>
+        <activiti:executionListener event="start" class="demo.executionlisteners.ExecutionListenerForCallActivity"></activiti:executionListener>
+      </extensionElements>
+    </userTask>
+>>>>>>> branch 'master' of https://github.com/holdbelief/workflow
     <boundaryEvent id="boundarytimer2" name="Timer" attachedToRef="usertask5" cancelActivity="true">
       <timerEventDefinition>
         <timeDuration>${timeDuration}</timeDuration>

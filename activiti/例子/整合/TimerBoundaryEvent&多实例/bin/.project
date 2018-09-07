@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>TimerBoundaryEvent&amp;多实例</name>
+=======
+	<name>TimerBoundaryEvent2</name>
+>>>>>>> branch 'master' of https://github.com/holdbelief/workflow
 	<comment></comment>
 	<projects>
 	</projects>
