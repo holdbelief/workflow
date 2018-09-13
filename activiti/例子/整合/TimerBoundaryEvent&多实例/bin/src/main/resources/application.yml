@@ -11,11 +11,7 @@ spring:
   activiti:
     check-process-definitions: false
 server:
-<<<<<<< HEAD
   port: 0
-=======
-  port: 8081
->>>>>>> branch 'master' of https://github.com/holdbelief/workflow
 
 
   

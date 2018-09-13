@@ -16,7 +16,6 @@
     <userTask id="usertask3" name="usertask3"></userTask>
     <sequenceFlow id="flow6" sourceRef="usertask2" targetRef="usertask3"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
-<<<<<<< HEAD
     <sequenceFlow id="flow8" sourceRef="boundarytimer2" targetRef="servicetask1"></sequenceFlow>
     <userTask id="usertask5" name="usertask5" activiti:assignee="${assignee}">
       <extensionElements>
@@ -89,81 +88,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="825.0" y="397.0"></omgdi:waypoint>
         <omgdi:waypoint x="990.0" y="407.0"></omgdi:waypoint>
-=======
-    <userTask id="usertask4" name="usertask4"></userTask>
-    <sequenceFlow id="flow8" sourceRef="boundarytimer2" targetRef="usertask4"></sequenceFlow>
-    <sequenceFlow id="flow9" sourceRef="usertask4" targetRef="terminateendevent1"></sequenceFlow>
-    <endEvent id="terminateendevent1" name="TerminateEndEvent">
-      <terminateEventDefinition></terminateEventDefinition>
-    </endEvent>
-    <userTask id="usertask5" name="usertask5">
-      <extensionElements>
-        <activiti:executionListener event="start" class="demo.executionlisteners.ExecutionListenerForCallActivity"></activiti:executionListener>
-      </extensionElements>
-    </userTask>
-    <boundaryEvent id="boundarytimer2" name="Timer" attachedToRef="usertask5" cancelActivity="true">
-      <timerEventDefinition>
-        <timeDuration>${timeDuration}</timeDuration>
-      </timerEventDefinition>
-    </boundaryEvent>
-  </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_myDemo">
-    <bpmndi:BPMNPlane bpmnElement="myDemo" id="BPMNPlane_myDemo">
-      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="161.0" y="209.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="1179.0" y="220.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="290.0" y="210.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="711.0" y="226.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
-        <omgdc:Bounds height="55.0" width="105.0" x="980.0" y="210.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="55.0" width="105.0" x="720.0" y="370.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="terminateendevent1" id="BPMNShape_terminateendevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="1050.0" y="370.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
-        <omgdc:Bounds height="55.0" width="105.0" x="490.0" y="210.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundarytimer2" id="BPMNShape_boundarytimer2">
-        <omgdc:Bounds height="30.0" width="30.0" x="570.0" y="250.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="196.0" y="226.0"></omgdi:waypoint>
-        <omgdi:waypoint x="290.0" y="237.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="595.0" y="237.0"></omgdi:waypoint>
-        <omgdi:waypoint x="711.0" y="253.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="395.0" y="237.0"></omgdi:waypoint>
-        <omgdi:waypoint x="490.0" y="237.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="816.0" y="253.0"></omgdi:waypoint>
-        <omgdi:waypoint x="980.0" y="237.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="1085.0" y="237.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1179.0" y="237.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="585.0" y="280.0"></omgdi:waypoint>
-        <omgdi:waypoint x="772.0" y="370.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="825.0" y="397.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1050.0" y="387.0"></omgdi:waypoint>
->>>>>>> branch 'master' of https://github.com/holdbelief/workflow
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
