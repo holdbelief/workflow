@@ -10,3 +10,5 @@
 **/*.png
 **/*.bpmn2d
 **/bin
+**/bin/*
+**/.class
