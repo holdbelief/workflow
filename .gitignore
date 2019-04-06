@@ -12,3 +12,6 @@
 **/bin
 **/bin/*
 **/.class
+.class
+.classpath
+*.bak
